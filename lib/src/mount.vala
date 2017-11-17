@@ -21,55 +21,132 @@ public static void print_mount (Mount mount, string title) {
     }
 }
 
+
+public async void m(){
+
+//var location = GLib.File.new_for_uri ("ftp://anonymous@ftp.gnu.org");
+	var location = GLib.File.new_for_uri ("smb://192.168.238.10/c$/");
+
+
+   bool res = false;
+        MountOperation? mount_op = null;
+        var cancellable = new Cancellable ();
+        const int MOUNT_TIMEOUT_SEC = 60;
+uint mount_timeout_id = 100;
+        try {
+            bool mounting = true;
+            bool asking_password = false;
+            //assert (mount_timeout_id == 0);
+
+  
+             mount_timeout_id = Timeout.add_seconds (MOUNT_TIMEOUT_SEC, () => {
+
+stdout.printf ("Montcando...\n");
+                if (!mounting ) {
+                    //mount_timeout_id = 0;
+                    //debug ("Cancelled after timeout in mount mountable %s", file.uri);
+                    //last_error_message = ("Timed out when trying to mount %s").printf (file.uri);
+                    //state = State.TIMED_OUT;
+                    //cancellable.cancel ();
+
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+
+
+           
+           /*
+            //if (allow_user_interaction) {
+                 mount_op = new MountOperation ();
+
+                mount_op.ask_password.connect (() => {
+                    debug ("Asking for password");
+                    asking_password = true;
+                });
+
+                mount_op.reply.connect (() => {
+                    debug ("Password dialog finished");
+                    asking_password = false;
+                });
+            //}
+            */
+                mount_op = new MountOperation ();
+                mount_op.anonymous = false;
+                mount_op.username = "administrador";
+                mount_op.password = "1234567";
+                mount_op.domain = "prueba.com";
+
+
+            stdout.printf ("Montando...\n");
+
+            res =yield location.mount_enclosing_volume (GLib.MountMountFlags.NONE, mount_op, cancellable);
+
+
+        } catch (Error e) {
+      //      last_error_message = e.message;
+        	//debug ("Mount_mountable failed: %s", e.message);
+        	stdout.printf ("Mount_mountable failed0: %s\n", e.message);
+
+
+  //last_error_message = e.message;
+            if (e is IOError.ALREADY_MOUNTED) {
+                stdout.printf  ("Already mounted\n");
+         //       file.is_connected = true;
+           //     res = true;
+            } else if (e is IOError.NOT_FOUND) {
+                stdout.printf ("Enclosing mount not found (may be remote share)");
+                /* Do not fail loading at this point - may still load */
+                try {
+                    yield location.mount_mountable (GLib.MountMountFlags.NONE, mount_op, cancellable);
+                    res = true;
+                } catch (GLib.Error e2) {
+                    //last_error_message = e2.message;
+                    stdout.printf ("Unable to mount mountable");
+                    res = false;
+                }
+
+            } else {
+                //file.is_connected = false;
+                //file.is_mounted = false;
+                stdout.printf ("Setting mount null 1");
+                //file.mount = null;
+                stdout.printf ("Mount_mountable2 failed: %s", e.message);
+                if (e is IOError.PERMISSION_DENIED || e is IOError.FAILED_HANDLED) {
+                    //permission_denied = true;
+                    stdout.printf ("Mount_mountable failed: 3");
+                }
+
+            }
+
+
+
+        } finally {
+            cancel_timeout (ref mount_timeout_id);
+
+        }
+
+        //debug ("success %s; enclosing mount %s", res.to_string (), file.mount != null ? file.mount.get_name () : "null");
+
+}
+
+ private bool cancel_timeout (ref uint id) {
+        if (id > 0) {
+            Source.remove (id);
+            id = 0;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 public static int main (string[] args) {
     MainLoop loop = new MainLoop ();
 
-  DBusConnection conn;
-  DBusProxy device_proxy;
-
-
-   try {
-                 conn = Bus.get_sync (BusType.SESSION);
-            } catch (Error e) {
-                 error (e.message);
-            }
-
-
-
-
-
-            try {
-                 device_proxy = new DBusProxy.sync (
-                         conn,
-                         DBusProxyFlags.NONE,
-                         null,
-                         "org.kde.kdeconnect",
-                         "path",
-                         "org.kde.kdeconnect.device",
-                         null
-                         );
-
-
-             var c = conn.call_sync (
-                             null,
-                             "",
-                             "ftp",
-                             "mountAndWait",
-                             null,
-                             null,
-                             DBusCallFlags.NONE,
-                             -1,
-                             null
-                             );
-
-
-stdout.printf ("    %s\n", device_proxy.get_object_path ());
-                 
-            } catch (Error e) {
-                message (e.message);
-            }
-
-
+  
+  m();
+///////////////////////////////////////////////////////////////////////
 
 
 
