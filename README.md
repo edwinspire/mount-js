@@ -1,9 +1,8 @@
-MOUNT JS
+MOUNTJS
 ===================
 
 
-**MountJS** permite montar recursos de red usando varios protocolos, por ejemplo FTP, SSH, WebDav, SMB. Usa [GIO](https://developer.gnome.org/gio/stable/) en Linux para hacer su trabajo.
-En entornos Windows funciona parcialmente.
+**MountJS** allows to mount network resources using several protocols, for example FTP, SSH, WebDav, SMB. Use GIO on Linux to do its job. In Windows environments it works partially.
 
 > **Note:**
 > MountJS can be used as a NodeJS module or independently from the command line.
