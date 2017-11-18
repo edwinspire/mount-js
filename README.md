@@ -39,10 +39,12 @@ As a result, a JSON is obtained with the detail of the mounted resource or Error
           "can_eject":false,
           "can_unmount":true,
           "icon":". GThemedIcon folder-remote folder",
-          "name":"ftp.gnu.org",      "root":"/run/user/1000/gvfs/ftp:host=ftp.gnu.org,user=anonymous",
+          "name":"ftp.gnu.org",      
+          "root":"/run/user/1000/gvfs/ftp:host=ftp.gnu.org,user=anonymous",
           "sort_key":"(null)",
           "uuid":"(null)",
-          "is_shadowed":false,   "default_location":"/run/user/1000/gvfs/ftp:host=ftp.gnu.org,user=anonymous"
+          "is_shadowed":false,   
+          "default_location":"/run/user/1000/gvfs/ftp:host=ftp.gnu.org,user=anonymous"
        },
        "params":{
           "protocol":"ftp",
