@@ -1,6 +1,6 @@
 {
   "name": "mount-js",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "mount fs",
   "main": "./lib/mountjs",
   "scripts": {

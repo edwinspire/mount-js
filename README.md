@@ -25,11 +25,11 @@ Parameters:
 **Samples**
 Mount to a Samba network resource or Windows shared folder:
 
-    ./mount "smb" "workgroup" "172.10.100.50/c$" "false" "myuser" "mypassword" "30"
+    ./mountjs-cli "smb" "workgroup" "172.10.100.50/c$" "false" "myuser" "mypassword" "30"
  
 Mount to an FTP site anonymously:
 
-    ./mount "ftp" "" "ftp.gnu.org" "true" "anonymous" "" "120"
+    ./mountjs-cli "ftp" "" "ftp.gnu.org" "true" "anonymous" "" "120"
  
 
 As a result, a JSON is obtained with the detail of the mounted resource or Error if it is the case:
