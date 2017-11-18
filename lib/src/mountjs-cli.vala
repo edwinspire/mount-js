@@ -167,7 +167,7 @@ public string get_param(){
 
     var param = new StringBuilder("{");
     param.append_printf(""""protocol": "%s",""", this.Protocol);
-    param.append_printf(""""Location": "%s",""", this.Location);
+    param.append_printf(""""location": "%s",""", this.Location);
     param.append_printf(""""username": "%s",""", this.UserName);
     param.append_printf(""""password": "%s",""", this.Password);
     param.append_printf(""""domain": "%s",""", this.Domain);
@@ -180,6 +180,7 @@ public string get_param(){
 
 public  void json (Mount mount) {
 
+if(mount.get_root ().get_path () == this.location.get_path ()){
     var r = new StringBuilder("{");
     r.append_printf (""""can_eject": %s,""", mount.can_eject ().to_string ());
     r.append_printf (""""can_unmount": %s,""", mount.can_unmount ().to_string ());
@@ -194,6 +195,8 @@ public  void json (Mount mount) {
     stdout.printf("""{"mount": %s, "params": %s}""", r.str, this.get_param());
 
     this.MLoop.quit ();
+    }
+
 }
 
 }
