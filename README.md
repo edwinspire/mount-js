@@ -60,3 +60,11 @@ As a result, a JSON is obtained with the detail of the mounted resource or Error
 
 
 
+-------------
+As NodeJS Module
+-------------
+Install with npm with the following command:
+
+    npm install mount-js
+
+
