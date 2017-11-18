@@ -16,7 +16,7 @@ Parameters:
 
  1. Protocol (ftp, smb, ssh, etc).
  2. Domain
- 3. Path
+ 3. Location
  4. Anonymous (true or false)
  5. Username (Required if Anonymous is false.)
  6. Password (Required if Anonymous is false.)
@@ -48,7 +48,7 @@ As a result, a JSON is obtained with the detail of the mounted resource or Error
        },
        "params":{
           "protocol":"ftp",
-          "path":"ftp.gnu.org",
+          "location":"ftp.gnu.org",
           "username":"anonymous",
           "password":"",
           "domain":"",

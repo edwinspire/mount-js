@@ -30,7 +30,7 @@ public class MountJS : GLib.Object {
 
     public MainLoop MLoop = new MainLoop ();
     private string Protocol = "";
-    private string Path = "";
+    private string Location = "";
     private string UserName = "";
     private string Password = "";
     private string Domain = "";
@@ -51,7 +51,7 @@ public class MountJS : GLib.Object {
             this.Domain = a;
             break;
             case 3:
-            this.Path = a;
+            this.Location = a;
             break;
             case 4:
             if(a == "true" || a == "TRUE"){
@@ -83,9 +83,9 @@ public class MountJS : GLib.Object {
 public async void mount(){
 
     if(this.UserName.length > 0){
-        this.location = GLib.File.new_for_uri (this.Protocol+"://"+this.UserName+"@"+this.Path);
+        this.location = GLib.File.new_for_uri (this.Protocol+"://"+this.UserName+"@"+this.Location);
     }else{
-        this.location = GLib.File.new_for_uri (this.Protocol+"://"+this.Path);
+        this.location = GLib.File.new_for_uri (this.Protocol+"://"+this.Location);
     }
 
 
@@ -167,7 +167,7 @@ public string get_param(){
 
     var param = new StringBuilder("{");
     param.append_printf(""""protocol": "%s",""", this.Protocol);
-    param.append_printf(""""path": "%s",""", this.Path);
+    param.append_printf(""""Location": "%s",""", this.Location);
     param.append_printf(""""username": "%s",""", this.UserName);
     param.append_printf(""""password": "%s",""", this.Password);
     param.append_printf(""""domain": "%s",""", this.Domain);
@@ -185,11 +185,11 @@ public  void json (Mount mount) {
     r.append_printf (""""can_unmount": %s,""", mount.can_unmount ().to_string ());
     r.append_printf (""""icon": "%s",""", mount.get_icon ().to_string ());
     r.append_printf (""""name": "%s",""", mount.get_name ());
-    r.append_printf (""""root": "%s",""", mount.get_root ().get_path ());
+    r.append_printf (""""root": "%s",""", mount.get_root ().get_location ());
     r.append_printf (""""sort_key": "%s",""", mount.get_sort_key ());
     r.append_printf (""""uuid": "%s",""", mount.get_uuid ());
     r.append_printf (""""is_shadowed": %s,""", mount.is_shadowed ().to_string ());
-    r.append_printf (""""default_location": "%s"}""", mount.get_default_location ().get_path ());
+    r.append_printf (""""default_location": "%s"}""", mount.get_default_location ().get_location ());
 
     stdout.printf("""{"mount": %s, "params": %s}""", r.str, this.get_param());
 
