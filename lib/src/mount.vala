@@ -185,11 +185,11 @@ public  void json (Mount mount) {
     r.append_printf (""""can_unmount": %s,""", mount.can_unmount ().to_string ());
     r.append_printf (""""icon": "%s",""", mount.get_icon ().to_string ());
     r.append_printf (""""name": "%s",""", mount.get_name ());
-    r.append_printf (""""root": "%s",""", mount.get_root ().get_location ());
+    r.append_printf (""""root": "%s",""", mount.get_root ().get_path ());
     r.append_printf (""""sort_key": "%s",""", mount.get_sort_key ());
     r.append_printf (""""uuid": "%s",""", mount.get_uuid ());
     r.append_printf (""""is_shadowed": %s,""", mount.is_shadowed ().to_string ());
-    r.append_printf (""""default_location": "%s"}""", mount.get_default_location ().get_location ());
+    r.append_printf (""""default_location": "%s"}""", mount.get_default_location ().get_path ());
 
     stdout.printf("""{"mount": %s, "params": %s}""", r.str, this.get_param());
 
